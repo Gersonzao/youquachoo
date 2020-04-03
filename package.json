@@ -1,0 +1,48 @@
+{
+  "name": "youquachoo",
+  "version": "1.0.0",
+  "description": "Switching quality of YouTube video to pre-selected by you",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AleshaOleg/youquachoo.git"
+  },
+  "author": "Oleh Aloshkin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AleshaOleg/youquachoo/issues"
+  },
+  "homepage": "https://github.com/AleshaOleg/youquachoo#readme",
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "es6": true,
+      "webextensions": true
+    },
+    "extends": [
+      "airbnb-base"
+    ],
+    "globals": {
+      "Atomics": "readonly",
+      "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+      "ecmaVersion": 2018
+    },
+    "rules": {
+      "arrow-parens": 0,
+      "semi": 0,
+      "prefer-destructuring": [2, {"object": true, "array": false}],
+      "newline-per-chained-call": 0,
+      "prefer-promise-reject-errors": 0
+    }
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2"
+  }
+}
