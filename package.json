@@ -41,6 +41,7 @@
       "prefer-promise-reject-errors": 0
     }
   },
+  "eslintIgnore": ["popup/sanitizer.js"],
   "devDependencies": {
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
