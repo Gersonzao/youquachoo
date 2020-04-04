@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf youquachoo.zip youquachoo; zip youquachoo.zip -r . -x $(more .zipignore)"
+    "build": "find . -name '.DS_Store' -type f -delete && rm -rf youquachoo.zip youquachoo && zip youquachoo.zip -r . -x $(more .zipignore)"
   },
   "repository": {
     "type": "git",
