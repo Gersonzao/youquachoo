@@ -34,14 +34,28 @@
       "ecmaVersion": 2018
     },
     "rules": {
-      "arrow-parens": [2, "as-needed"],
-      "semi": [2, "never"],
-      "prefer-destructuring": [2, {"object": true, "array": false}],
+      "arrow-parens": [
+        2,
+        "as-needed"
+      ],
+      "semi": [
+        2,
+        "never"
+      ],
+      "prefer-destructuring": [
+        2,
+        {
+          "object": true,
+          "array": false
+        }
+      ],
       "newline-per-chained-call": 0,
       "prefer-promise-reject-errors": 0
     }
   },
-  "eslintIgnore": ["popup/sanitizer.js"],
+  "eslintIgnore": [
+    "popup/sanitizer.js"
+  ],
   "devDependencies": {
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
