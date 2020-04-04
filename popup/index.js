@@ -30,7 +30,7 @@ const warningTemplate = () => `
 
 const renderPopupBody = (resolve, reject) => {
   if (browserName === 'chrome') {
-    document.querySelector('.link--twitter').setAttribute('href', 'https://twitter.com/intent/tweet?text=I%27m%20using%20@YouQuaChoo,%20so%20I%20can%20watch%20YouTube%20videos%20with%20automatically%20adjusted%20quality%20&hashtags=stayathome,youquachoo&url=https://chrome.google.com/webstore/detail/jliicjkfmphbiaodicamhibnmipgmmnm')
+    document.querySelector('.link--twitter').setAttribute('href', 'https://twitter.com/intent/tweet?text=I%27m%20using%20@YouQuaChoo,%20so%20I%20can%20watch%20YouTube%20videos%20with%20automatically%20adjusted%20quality%20&hashtags=stayathome,youquachoo&url=https://chrome.google.com/webstore/detail/hmjpfogomanmeofhamkgkenccpcklanj')
   } else if (browserName === 'firefox') {
     document.querySelector('.link--twitter').setAttribute('href', 'https://twitter.com/intent/tweet?text=I%27m%20using%20@YouQuaChoo,%20so%20I%20can%20watch%20YouTube%20videos%20with%20automatically%20adjusted%20quality%20&hashtags=stayathome,youquachoo&url=https://addons.mozilla.org/addon/youquachoo')
   }
@@ -119,7 +119,7 @@ const copyExtensionLink = () => {
     let linkToCopy
 
     if (browserName === 'chrome') {
-      linkToCopy = 'https://chrome.google.com/webstore/detail/jliicjkfmphbiaodicamhibnmipgmmnm'
+      linkToCopy = 'https://chrome.google.com/webstore/detail/hmjpfogomanmeofhamkgkenccpcklanj'
     } else if (browserName === 'firefox') {
       linkToCopy = 'https://addons.mozilla.org/addon/youquachoo'
     }
