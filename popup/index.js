@@ -9,7 +9,7 @@ if (typeof browser !== 'undefined') {
   browserName = 'chrome'
 }
 
-const mainTemplate = `
+const mainTemplate = window.Sanitizer.escapeHTML`
   <span class="text text--bold">Choose your default YouTube quality:</span>
   <div class="main__grid grid">
     <button data-quality="0" class="button button--max">Max Available</button>
@@ -21,7 +21,7 @@ const mainTemplate = `
   </div>
 `
 
-const warningTemplate = `
+const warningTemplate = window.Sanitizer.escapeHTML`
   <div class="warning">
     <span class="text text--centered">In this version, the plugin works only on <a class="link link--text" tabindex="0" target="_blank" href="https://www.youtube.com/">youtube.com</a>. But in the future, we will add support for embedded videos on third-party sites.</span>
     <a class="link link--label link--background link--feedback" tabindex="0" target="_blank" href="mailto:olegaleshkin@gmail.com">Send Feedback & Suggestions</a>
@@ -30,17 +30,17 @@ const warningTemplate = `
 
 const renderPopupBody = (resolve, reject) => {
   if (browserName === 'chrome') {
-    document.querySelector('.link--twitter').setAttribute('href', 'https://twitter.com/intent/tweet?text=I%27m%20using%20@YouQuaChoo,%20so%20I%20can%20watch%20YouTube%20videos%20with%20automatically%20adjusted%20quality%20&hashtags=stayathome,youquachoo&url=https://chrome.google.com/webstore/detail/hmjpfogomanmeofhamkgkenccpcklanj')
+    document.querySelector('.link--twitter').setAttribute('href', 'https://twitter.com/intent/tweet?text=I%27m%20using%20@YouQuaChoo,%20so%20I%20can%20watch%20YouTube%20videos%20with%20automatically%20adjusted%20quality%20&hashtags=stayathome,youquachoo&url=https://chrome.google.com/webstore/detail/agnpidgdllnhnkacjnbpaoelnhabahfk')
   } else if (browserName === 'firefox') {
     document.querySelector('.link--twitter').setAttribute('href', 'https://twitter.com/intent/tweet?text=I%27m%20using%20@YouQuaChoo,%20so%20I%20can%20watch%20YouTube%20videos%20with%20automatically%20adjusted%20quality%20&hashtags=stayathome,youquachoo&url=https://addons.mozilla.org/addon/youquachoo')
   }
 
   env.tabs.query({ active: true, currentWindow: true }, tabs => {
     if (new URL(tabs[0].url).hostname === 'www.youtube.com') {
-      document.querySelector('.main').insertAdjacentHTML('afterbegin', window.Sanitizer.escapeHTML(mainTemplate))
+      document.querySelector('.main').insertAdjacentHTML('afterbegin', mainTemplate)
       resolve()
     } else {
-      document.querySelector('.main').insertAdjacentHTML('afterbegin', window.Sanitizer.escapeHTML(warningTemplate))
+      document.querySelector('.main').insertAdjacentHTML('afterbegin', warningTemplate)
       reject('warning')
     }
   })
@@ -119,7 +119,7 @@ const copyExtensionLink = () => {
     let linkToCopy
 
     if (browserName === 'chrome') {
-      linkToCopy = 'https://chrome.google.com/webstore/detail/hmjpfogomanmeofhamkgkenccpcklanj'
+      linkToCopy = 'https://chrome.google.com/webstore/detail/agnpidgdllnhnkacjnbpaoelnhabahfk'
     } else if (browserName === 'firefox') {
       linkToCopy = 'https://addons.mozilla.org/addon/youquachoo'
     }
