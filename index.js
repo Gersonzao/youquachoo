@@ -1,16 +1,20 @@
 // To prevent multiple calls of adjustQuality from different watchers/listeners
 let isAdjusting = false
+let env
+
+if (typeof browser !== 'undefined') env = browser
+else env = chrome
 
 const detectQuality = resolve => {
-  chrome.storage.sync.get('quality', ({ quality }) => {
+  env.storage.sync.get('quality', ({ quality }) => {
     if (!quality) {
-      chrome.storage.sync.set({ quality: 3 }, () => {
+      env.storage.sync.set({ quality: 3 }, () => {
         resolve(3)
       })
       return
     }
 
-    chrome.storage.sync.set({ quality }, () => {
+    env.storage.sync.set({ quality }, () => {
       resolve(quality)
     })
   })
@@ -41,7 +45,7 @@ const clickToQuality = () => {
 }
 
 const pickQuality = () => {
-  chrome.storage.sync.get('quality', data => {
+  env.storage.sync.get('quality', data => {
     const qualityElements = document
       .querySelector('.ytp-quality-menu')
       .querySelectorAll('.ytp-menuitem')
@@ -58,7 +62,7 @@ const pickQuality = () => {
 
 const onAdjustError = type => {
   if (type === 'disabled') {
-    chrome.runtime.sendMessage({
+    env.runtime.sendMessage({
       action: 'updateIcon',
       icon: '-1',
     })
@@ -66,7 +70,7 @@ const onAdjustError = type => {
     return
   }
 
-  chrome.runtime.sendMessage({
+  env.runtime.sendMessage({
     action: 'updateIcon',
     icon: '-2',
   })
@@ -102,7 +106,7 @@ const adjustQuality = () => {
     }
   }, 500)
 
-  chrome.runtime.onMessage.addListener(message => {
+  env.runtime.onMessage.addListener(message => {
     if (message.action === 'adjustQuality') {
       if (window.location.pathname === '/watch') {
         adjustQuality()

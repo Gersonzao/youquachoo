@@ -1,15 +1,20 @@
-(() => {
-  const mapIcons = {
-    0: 'max',
-    3: 'fhd',
-    4: 'hd',
-    5: 'sd',
-    6: 'ld',
-    '-1': 'pause',
-    '-2': 'error',
-  }
+let env
 
-  chrome.runtime.onMessage.addListener(message => {
+if (typeof browser !== 'undefined') env = browser
+else env = chrome
+
+const mapIcons = {
+  0: 'max',
+  3: 'fhd',
+  4: 'hd',
+  5: 'sd',
+  6: 'ld',
+  '-1': 'pause',
+  '-2': 'error',
+};
+
+(() => {
+  env.runtime.onMessage.addListener(message => {
     if (message.action === 'updateIcon') {
       const type = mapIcons[message.icon]
       chrome.browserAction.setIcon({

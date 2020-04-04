@@ -2,12 +2,16 @@
   "manifest_version": 2,
   "name": "YouQuaChoo",
   "version": "1.0",
-  "description": "Switching quality of YouTube video to pre-selected by you",
+  "description": "Adjust quality of YouTube videos to wanted automatically",
   "permissions": [
     "storage",
-    "tabs",
-    "background"
+    "tabs"
   ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "83e4ceaed6bd1e6b01f94057a0e9ab36daf39ce8@youquachoo"
+    }
+  },
   "content_scripts": [
     {
       "run_at": "document_start",
@@ -20,6 +24,7 @@
     "24": "assets/external/main/24.png",
     "32": "assets/external/main/32.png",
     "48": "assets/external/main/48.png",
+    "96": "assets/external/main/96.png",
     "128": "assets/external/main/128.png"
   },
   "browser_action": {

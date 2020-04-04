@@ -231,6 +231,7 @@ body {
 
 .button--copy-link {
   grid-column: 3 / 5;
+  padding: 0 7px;
 }
 
 .copy-link--fade-in-fade-out {

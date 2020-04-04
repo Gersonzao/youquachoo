@@ -4,7 +4,8 @@
   "description": "Switching quality of YouTube video to pre-selected by you",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf youquachoo.zip youquachoo; zip youquachoo.zip -r . -x $(more .zipignore)"
   },
   "repository": {
     "type": "git",
@@ -33,8 +34,8 @@
       "ecmaVersion": 2018
     },
     "rules": {
-      "arrow-parens": 0,
-      "semi": 0,
+      "arrow-parens": [2, "as-needed"],
+      "semi": [2, "never"],
       "prefer-destructuring": [2, {"object": true, "array": false}],
       "newline-per-chained-call": 0,
       "prefer-promise-reject-errors": 0

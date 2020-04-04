@@ -1,3 +1,14 @@
+let env
+let browserName
+
+if (typeof browser !== 'undefined') {
+  env = browser
+  browserName = 'firefox'
+} else {
+  env = chrome
+  browserName = 'chrome'
+}
+
 const mainTemplate = () => `
   <span class="text text--bold">Choose your default YouTube quality:</span>
   <div class="main__grid grid">
@@ -18,7 +29,13 @@ const warningTemplate = () => `
 `
 
 const renderPopupBody = (resolve, reject) => {
-  chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+  if (browserName === 'chrome') {
+    document.querySelector('.link--twitter').setAttribute('href', 'https://twitter.com/intent/tweet?text=I%27m%20using%20@YouQuaChoo,%20so%20I%20can%20watch%20YouTube%20videos%20with%20automatically%20adjusted%20quality%20&hashtags=stayathome,youquachoo&url=https://chrome.google.com/webstore/detail/jliicjkfmphbiaodicamhibnmipgmmnm')
+  } else if (browserName === 'firefox') {
+    document.querySelector('.link--twitter').setAttribute('href', 'https://twitter.com/intent/tweet?text=I%27m%20using%20@YouQuaChoo,%20so%20I%20can%20watch%20YouTube%20videos%20with%20automatically%20adjusted%20quality%20&hashtags=stayathome,youquachoo&url=https://addons.mozilla.org/addon/youquachoo')
+  }
+
+  env.tabs.query({ active: true, currentWindow: true }, tabs => {
     if (new URL(tabs[0].url).hostname === 'www.youtube.com') {
       document.querySelector('.main').insertAdjacentHTML('afterbegin', mainTemplate())
       resolve()
@@ -30,9 +47,9 @@ const renderPopupBody = (resolve, reject) => {
 }
 
 const setQuality = () => {
-  chrome.storage.sync.get('quality', ({ quality }) => {
+  env.storage.sync.get('quality', ({ quality }) => {
     if (!quality) {
-      chrome.storage.sync.set({ quality: 3 })
+      env.storage.sync.set({ quality: 3 })
       document.querySelector(`[data-quality="${3}"]`).classList.add('button--active')
       return
     }
@@ -51,7 +68,7 @@ const addQualityButtonsListeners = () => {
 
   qualityButtons.forEach(el => {
     el.addEventListener('click', () => {
-      chrome.storage.sync.get('quality', () => {
+      env.storage.sync.get('quality', () => {
         const newQualityValue = parseInt(el.getAttribute('data-quality'), 10)
 
         if (newQualityValue === -1) {
@@ -63,15 +80,15 @@ const addQualityButtonsListeners = () => {
         document.querySelector('.button--active').classList.remove('button--active')
         document.querySelector(`[data-quality="${newQualityValue}"]`).classList.add('button--active')
 
-        chrome.storage.sync.set({ quality: newQualityValue })
+        env.storage.sync.set({ quality: newQualityValue })
 
-        chrome.runtime.sendMessage({
+        env.runtime.sendMessage({
           action: 'updateIcon',
           icon: newQualityValue,
         })
 
-        chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-          chrome.tabs.sendMessage(tabs[0].id, { action: 'adjustQuality' })
+        env.tabs.query({ active: true, currentWindow: true }, tabs => {
+          env.tabs.sendMessage(tabs[0].id, { action: 'adjustQuality' })
         })
       })
     })
@@ -84,7 +101,7 @@ const onPopupLoadingError = type => {
     return
   }
 
-  chrome.runtime.sendMessage({
+  env.runtime.sendMessage({
     action: 'updateIcon',
     icon: '-2',
   })
@@ -99,7 +116,15 @@ const copyExtensionLink = () => {
   copyLinkButton.addEventListener('click', () => {
     if (copyLinkText.classList.contains('copy-link--animating')) return
 
-    navigator.clipboard.writeText('https://chrome.google.com/webstore/detail/jliicjkfmphbiaodicamhibnmipgmmnm').then(() => {
+    let linkToCopy
+
+    if (browserName === 'chrome') {
+      linkToCopy = 'https://chrome.google.com/webstore/detail/jliicjkfmphbiaodicamhibnmipgmmnm'
+    } else if (browserName === 'firefox') {
+      linkToCopy = 'https://addons.mozilla.org/addon/youquachoo'
+    }
+
+    navigator.clipboard.writeText(linkToCopy).then(() => {
       copyLinkText.classList.add('copy-link--animating')
       copyLinkText.classList.add('copy-link--fade-in-fade-out')
       setTimeout(() => {
