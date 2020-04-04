@@ -9,7 +9,7 @@ if (typeof browser !== 'undefined') {
   browserName = 'chrome'
 }
 
-const mainTemplate = () => window.Sanitizer.escapeHTML`
+const mainTemplate = `
   <span class="text text--bold">Choose your default YouTube quality:</span>
   <div class="main__grid grid">
     <button data-quality="0" class="button button--max">Max Available</button>
@@ -21,7 +21,7 @@ const mainTemplate = () => window.Sanitizer.escapeHTML`
   </div>
 `
 
-const warningTemplate = () => window.Sanitizer.escapeHTML`
+const warningTemplate = `
   <div class="warning">
     <span class="text text--centered">In this version, the plugin works only on <a class="link link--text" tabindex="0" target="_blank" href="https://www.youtube.com/">youtube.com</a>. But in the future, we will add support for embedded videos on third-party sites.</span>
     <a class="link link--label link--background link--feedback" tabindex="0" target="_blank" href="mailto:olegaleshkin@gmail.com">Send Feedback & Suggestions</a>
@@ -37,10 +37,10 @@ const renderPopupBody = (resolve, reject) => {
 
   env.tabs.query({ active: true, currentWindow: true }, tabs => {
     if (new URL(tabs[0].url).hostname === 'www.youtube.com') {
-      document.querySelector('.main').insertAdjacentHTML('afterbegin', mainTemplate())
+      document.querySelector('.main').insertAdjacentHTML('afterbegin', window.Sanitizer.escapeHTML(mainTemplate))
       resolve()
     } else {
-      document.querySelector('.main').insertAdjacentHTML('afterbegin', warningTemplate())
+      document.querySelector('.main').insertAdjacentHTML('afterbegin', window.Sanitizer.escapeHTML(warningTemplate))
       reject('warning')
     }
   })
