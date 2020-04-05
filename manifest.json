@@ -5,7 +5,9 @@
   "description": "Adjust quality of YouTube videos automatically",
   "permissions": [
     "storage",
-    "tabs"
+    "tabs",
+    "http://*/",
+    "https://*/"
   ],
   "browser_specific_settings": {
     "gecko": {

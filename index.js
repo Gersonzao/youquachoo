@@ -113,4 +113,12 @@ const adjustQuality = () => {
       }
     }
   })
+
+  env.runtime.onMessage.addListener((msg, _, sendResponse) => {
+    if (msg.action === 'getDOM') {
+      sendResponse({
+        document,
+      })
+    }
+  })
 })()
